@@ -1,5 +1,6 @@
 package com.shock.aasaanjobassignment.page.city.interactor;
 
+import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 
 import com.shock.aasaanjobassignment.Constants;
@@ -38,6 +39,12 @@ public class MainActivityInteractor implements IMainActivityInteractor {
     @Inject
     public MainActivityInteractor(IDbHelper dbHelper) {
         this.dbHelper = dbHelper;
+    }
+
+    @VisibleForTesting
+    public MainActivityInteractor(IDbHelper dbHelper, INetworkService networkService) {
+        this.dbHelper = dbHelper;
+        this.networkService = networkService;
     }
 
     @Override

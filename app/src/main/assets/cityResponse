@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "previous": null,
+    "next": "https://api.aasaanjobs.com/api/v4/city/?limit=10&offset=10",
+    "count": 37,
+    "limit": 10,
+    "offset": 0
+  },
+  "objects": [
+    {
+      "id": 1,
+      "name": "Mumbai",
+      "slug": "mumbai"
+    },
+    {
+      "id": 2,
+      "name": "New Delhi",
+      "slug": "new-delhi"
+    },
+    {
+      "id": 3,
+      "name": "Pune",
+      "slug": "pune"
+    },
+    {
+      "id": 4,
+      "name": "Bengaluru",
+      "slug": "bengaluru"
+    },
+    {
+      "id": 5,
+      "name": "Navi Mumbai",
+      "slug": "navi-mumbai"
+    },
+    {
+      "id": 6,
+      "name": "Ahmedabad",
+      "slug": "ahmedabad"
+    },
+    {
+      "id": 7,
+      "name": "Kolkata",
+      "slug": "kolkata"
+    },
+    {
+      "id": 8,
+      "name": "Chennai",
+      "slug": "chennai"
+    },
+    {
+      "id": 9,
+      "name": "Hyderabad",
+      "slug": "hyderabad"
+    },
+    {
+      "id": 10,
+      "name": "Gurgaon",
+      "slug": "gurgaon"
+    }
+  ]
+}

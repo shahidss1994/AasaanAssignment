@@ -6,6 +6,8 @@ import javax.annotation.Generated;
 
 import com.google.gson.annotations.SerializedName;
 
+import okhttp3.HttpUrl;
+
 @Generated("com.robohorse.robopojogenerator")
 public class CitiesResponse {
 
@@ -14,6 +16,10 @@ public class CitiesResponse {
 
     @SerializedName("objects")
     private List<City> cities;
+
+    public CitiesResponse(HttpUrl httpUrl){
+
+    }
 
     public void setMeta(Meta meta) {
         this.meta = meta;

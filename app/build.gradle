@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
 
+
 android {
     compileSdkVersion rootProject.ext.compileSdk
     defaultConfig {
@@ -66,7 +67,9 @@ dependencies {
     compileOnly "javax.annotation:jsr250-api:$rootProject.annotation"
 
     //Mockito
-    testImplementation "org.mockito:mockito-core:$rootProject.mockito"
+    androidTestImplementation "org.mockito:mockito-core:$rootProject.mockito"
+
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:$rootProject.mockWebServer"
 
 
 }
