@@ -1,4 +1,4 @@
-package com.shock.aasaanjobassignment.page.model;
+package com.shock.aasaanjobassignment.page.city.model;
 
 import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;

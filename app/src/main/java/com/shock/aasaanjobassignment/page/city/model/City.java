@@ -1,4 +1,4 @@
-package com.shock.aasaanjobassignment.page.model;
+package com.shock.aasaanjobassignment.page.city.model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -7,12 +7,13 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
 
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Transient;
 
 @Entity (nameInDb = "City")
 public class City {
 
     @Id (autoincrement = true)
-    private Long id;
+    private transient Long id;
 
     @Property
     @SerializedName ("name")
@@ -25,9 +26,8 @@ public class City {
     @SerializedName ("slug")
     private String slug;
 
-    @Generated(hash = 1195418065)
-    public City(Long id, String name, Long cityId, String slug) {
-        this.id = id;
+    @Generated(hash = 376827839)
+    public City(String name, Long cityId, String slug) {
         this.name = name;
         this.cityId = cityId;
         this.slug = slug;

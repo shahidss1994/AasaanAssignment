@@ -15,22 +15,27 @@
 
 package com.shock.aasaanjobassignment.db;
 
-import com.shock.aasaanjobassignment.page.model.City;
-import com.shock.aasaanjobassignment.page.model.DaoMaster;
-import com.shock.aasaanjobassignment.page.model.DaoSession;
+import com.shock.aasaanjobassignment.Constants;
+import com.shock.aasaanjobassignment.page.city.model.City;
+import com.shock.aasaanjobassignment.page.city.model.DaoMaster;
+import com.shock.aasaanjobassignment.page.city.model.DaoSession;
 
 import java.util.List;
 import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 
-import rx.Observable;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 
 /**
  * Created by shahid on 25/1/18.
  */
-public class AppDbHelper implements DbHelper {
+public class AppDbHelper implements IDbHelper {
 
     private final DaoSession mDaoSession;
 
@@ -45,7 +50,7 @@ public class AppDbHelper implements DbHelper {
         return Observable.fromCallable(new Callable<Long>() {
             @Override
             public Long call() throws Exception {
-                return mDaoSession.getCityDao().insert(city);
+                return mDaoSession.getCityDao().insertOrReplace(city);
             }
         });
     }
@@ -55,7 +60,7 @@ public class AppDbHelper implements DbHelper {
         return Observable.fromCallable(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                mDaoSession.getCityDao().insertInTx(cities);
+                mDaoSession.getCityDao().insertOrReplaceInTx(cities);
                 return true;
             }
         });
@@ -72,11 +77,27 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
+    public Observable<List<City>> getCitiesFromTo(final int offset) {
+        /*return Observable.rangeLong(from,to).map(new Function<Long, City>() {
+            @Override
+            public City apply(Long aLong) throws Exception {
+                return mDaoSession.getCityDao().loadByRowId(aLong);
+            }
+        }).toList().toObservable()*/;
+        return Observable.fromCallable(new Callable<List<City>>() {
+            @Override
+            public List<City> call() throws Exception {
+                return mDaoSession.getCityDao().queryBuilder().offset(offset).limit(Constants.LIMIT).list();
+            }
+        });
+    }
+
+    @Override
     public Observable<City> getCity(final long cityId) {
         return Observable.fromCallable(new Callable<City>() {
             @Override
             public City call() throws Exception {
-                return mDaoSession.getCityDao().load(cityId);
+                return mDaoSession.getCityDao().loadByRowId(cityId);
             }
         });
     }

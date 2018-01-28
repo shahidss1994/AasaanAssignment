@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.shock.aasaanjobassignment.Constants;
 import com.shock.aasaanjobassignment.di.App;
 
@@ -86,7 +87,7 @@ public class NetworkModule {
         return new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .client(okHttpClient)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }

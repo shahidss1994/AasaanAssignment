@@ -15,24 +15,26 @@
 
 package com.shock.aasaanjobassignment.db;
 
-import com.shock.aasaanjobassignment.page.model.City;
+import com.shock.aasaanjobassignment.page.city.model.City;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 
 /**
  * Created by shahid on 25/1/18.
  */
 
-public interface DbHelper {
+public interface IDbHelper {
 
     Observable<Long> insertCity(final City city);
 
     Observable<Boolean> insertCities(final List<City> cities);
 
     Observable<List<City>> getCities();
+
+    Observable<List<City>> getCitiesFromTo(int offset);
 
     Observable<City> getCity(long cityId);
 

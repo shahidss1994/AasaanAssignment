@@ -17,7 +17,7 @@ package com.shock.aasaanjobassignment.db;
 
 import android.content.Context;
 
-import com.shock.aasaanjobassignment.page.model.DaoMaster;
+import com.shock.aasaanjobassignment.page.city.model.DaoMaster;
 
 import org.greenrobot.greendao.database.Database;
 
