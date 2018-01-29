@@ -17,8 +17,8 @@ public class CitiesResponse {
     @SerializedName("objects")
     private List<City> cities;
 
-    public CitiesResponse(HttpUrl httpUrl){
-
+    public CitiesResponse(List<City> cities){
+        this.cities = cities;
     }
 
     public void setMeta(Meta meta) {

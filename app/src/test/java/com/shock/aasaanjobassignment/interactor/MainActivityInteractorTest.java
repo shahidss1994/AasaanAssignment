@@ -1,8 +1,10 @@
 package com.shock.aasaanjobassignment.interactor;
 
+import com.shock.aasaanjobassignment.Constants;
 import com.shock.aasaanjobassignment.db.IDbHelper;
 import com.shock.aasaanjobassignment.network.INetworkService;
 import com.shock.aasaanjobassignment.page.city.interactor.MainActivityInteractor;
+import com.shock.aasaanjobassignment.page.city.model.CitiesResponse;
 import com.shock.aasaanjobassignment.page.city.model.City;
 import com.shock.aasaanjobassignment.page.city.presenter.IMainActivityPresenterListener;
 
@@ -13,7 +15,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 
 import io.reactivex.Observable;
@@ -34,6 +38,8 @@ import static org.mockito.Mockito.when;
 public class MainActivityInteractorTest {
 
     private MainActivityInteractor mainActivityInteractor;
+
+    private int OFFSET = 0;
 
     @Mock
     private IMainActivityPresenterListener mainActivityPresenterListener;
@@ -71,43 +77,104 @@ public class MainActivityInteractorTest {
         });
     }
 
+    @Test
+    public void getCitiesFromDb() {
+        mockDbCities();
+        mainActivityInteractor.getCitiesFromDb(OFFSET);
+        verify(mainActivityPresenterListener).onCitiesResultFromDb(any(List.class), OFFSET);
+    }
+
+    @Test
+    public void getCitiesFromDbNotNullButEmpty() {
+        mockDbEmptyCitiesButNotNull();
+        mainActivityInteractor.getCitiesFromDb(OFFSET);
+        verify(mainActivityPresenterListener).onCitiesResultFromDb(any(List.class), OFFSET);
+    }
+
+    @Test
+    public void getCitiesFromDbNull() {
+        mockDbCitiesNull();
+        mainActivityInteractor.getCitiesFromDb(OFFSET);
+        verify(mainActivityPresenterListener).onCitiesResultFromDb(null, OFFSET);
+    }
+
+    @Test
+    public void getCitiesFromDbThrowsError() {
+        mainActivityInteractor.getCitiesFromDb(OFFSET);
+        verify(mainActivityPresenterListener).onError("ERR!!");
+    }
+
+    @Test
+    public void getCitiesFromApi() {
+        mockApiCities();
+        mainActivityInteractor.getCitiesFromDb(OFFSET);
+        verify(mainActivityPresenterListener).onCitiesResultFromApi(any(CitiesResponse.class));
+    }
+
+    @Test
+    public void getCitiesFromApiNotNullButEmpty() {
+        mockApiEmptyCitiesButNotNull();
+        mainActivityInteractor.getCitiesFromDb(OFFSET);
+        verify(mainActivityPresenterListener).onCitiesResultFromApi(any(CitiesResponse.class));
+    }
+
+    @Test
+    public void getCitiesFromApiNull() {
+        mockApiCitiesNull();
+        mainActivityInteractor.getCitiesFromDb(OFFSET);
+        verify(mainActivityPresenterListener).onCitiesResultFromApi(any(CitiesResponse.class));
+    }
+
+    @Test
+    public void getCitiesFromApiThrowsError() {
+        mainActivityInteractor.getCitiesFromApi(OFFSET);
+        verify(mainActivityPresenterListener).onError("ERR!!");
+    }
+
     private void mockDbCities() {
         List<City> cities = mockCities();
         Observable<List<City>> observableCities = Observable.just(cities);
         when(dbHelper.getCities()).thenReturn(observableCities);
     }
 
-    private void mockDbEmptyCitiesNotNullButEmpty() {
+    private void mockDbEmptyCitiesButNotNull() {
         List<City> cities = new ArrayList<>();
         Observable<List<City>> observableCities = Observable.just(cities);
         when(dbHelper.getCities()).thenReturn(observableCities);
     }
 
-    private void mockDbEmptyCitiesNull() {
+    private void mockDbCitiesNull() {
         List<City> cities = null;
         Observable<List<City>> observableCities = Observable.just(cities);
         when(dbHelper.getCities()).thenReturn(observableCities);
     }
 
-    @Test
-    public void getCitiesFromDb() {
-        mockDbCities();
-        mainActivityInteractor.getCitiesFromDb(0);
-        verify(mainActivityPresenterListener).onCitiesResultFromDb(any(List.class), 0);
+    private void mockApiCities() {
+        List<City> cities = mockCities();
+        CitiesResponse citiesResponse = new CitiesResponse(cities);
+        Observable<CitiesResponse> observableCities = Observable.just(citiesResponse);
+        when(networkService.getCities(getQueryMap())).thenReturn(observableCities);
     }
 
-    @Test
-    public void getCitiesFromDbNotNullButEmpty() {
-        mockDbEmptyCitiesNotNullButEmpty();
-        mainActivityInteractor.getCitiesFromDb(0);
-        verify(mainActivityPresenterListener).onCitiesResultFromDb(any(List.class), 0);
+    private void mockApiEmptyCitiesButNotNull() {
+        List<City> cities = new ArrayList<>();
+        CitiesResponse citiesResponse = new CitiesResponse(cities);
+        Observable<CitiesResponse> observableCities = Observable.just(citiesResponse);
+        when(networkService.getCities(getQueryMap())).thenReturn(observableCities);
     }
 
-    @Test
-    public void getCitiesFromDbNull() {
-        mockDbEmptyCitiesNull();
-        mainActivityInteractor.getCitiesFromDb(0);
-        verify(mainActivityPresenterListener).onCitiesResultFromDb(null, 0);
+    private void mockApiCitiesNull() {
+        List<City> cities = null;
+        CitiesResponse citiesResponse = new CitiesResponse(cities);
+        Observable<CitiesResponse> observableCities = Observable.just(citiesResponse);
+        when(networkService.getCities(getQueryMap())).thenReturn(observableCities);
+    }
+
+    private Map<String, String> getQueryMap() {
+        Map<String, String> queryMap = new HashMap<>();
+        queryMap.put(Constants.KEY_OFFSET, String.valueOf(OFFSET));
+        queryMap.put(Constants.KEY_LIMIT, String.valueOf(Constants.LIMIT));
+        return queryMap;
     }
 
     private List<City> mockCities() {
@@ -126,7 +193,7 @@ public class MainActivityInteractorTest {
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         RxAndroidPlugins.reset();
         RxJavaHooks.reset();
     }
