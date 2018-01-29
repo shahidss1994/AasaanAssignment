@@ -1,8 +1,5 @@
 package com.shock.aasaanjobassignment.interactor;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-
 import com.shock.aasaanjobassignment.db.IDbHelper;
 import com.shock.aasaanjobassignment.network.INetworkService;
 import com.shock.aasaanjobassignment.page.city.interactor.MainActivityInteractor;
@@ -26,11 +23,7 @@ import rx.functions.Func1;
 import rx.plugins.RxJavaHooks;
 import rx.schedulers.Schedulers;
 
-import static org.mockito.AdditionalMatchers.and;
-import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -50,11 +43,9 @@ public class MainActivityInteractorTest {
 
     @Mock
     private INetworkService networkService;
-    private Context context;
 
     @Before
     public void setup() {
-        context = InstrumentationRegistry.getTargetContext();
 
         MockitoAnnotations.initMocks(this);
 
