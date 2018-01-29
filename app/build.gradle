@@ -70,6 +70,7 @@ dependencies {
     androidTestImplementation "org.mockito:mockito-core:$rootProject.mockito"
 
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:$rootProject.mockWebServer"
+    androidTestImplementation "junit:junit:$rootProject.junit"
 
 
 }

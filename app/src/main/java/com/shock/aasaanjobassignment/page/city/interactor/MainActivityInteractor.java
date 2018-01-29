@@ -42,9 +42,10 @@ public class MainActivityInteractor implements IMainActivityInteractor {
     }
 
     @VisibleForTesting
-    public MainActivityInteractor(IDbHelper dbHelper, INetworkService networkService) {
+    public MainActivityInteractor(IDbHelper dbHelper, INetworkService networkService, IMainActivityPresenterListener mainActivityPresenterListener) {
         this.dbHelper = dbHelper;
         this.networkService = networkService;
+        this.mainActivityPresenterListener = mainActivityPresenterListener;
     }
 
     @Override
@@ -144,4 +145,5 @@ public class MainActivityInteractor implements IMainActivityInteractor {
             }
         });
     }
+
 }

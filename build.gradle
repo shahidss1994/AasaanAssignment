@@ -45,7 +45,7 @@ ext {
     butterKnife = "8.5.1"
     greenDao = "3.2.2"
     annotation = "1.0"
-    mockito = "1.10.19"
+    mockito = "2.13.0"
     mockWebServer = "3.2.0"
 }
 
