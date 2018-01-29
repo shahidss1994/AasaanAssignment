@@ -9,6 +9,7 @@ import com.shock.aasaanjobassignment.page.city.interactor.MainActivityInteractor
 import com.shock.aasaanjobassignment.page.city.model.City;
 import com.shock.aasaanjobassignment.page.city.presenter.IMainActivityPresenterListener;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -131,6 +132,12 @@ public class MainActivityInteractorTest {
         cities.add(new City("Hyderabad", 9l, "hyderabad"));
         cities.add(new City("Gurgaon", 10l, "gurgaon"));
         return cities;
+    }
+
+    @After
+    public void tearDown(){
+        RxAndroidPlugins.reset();
+        RxJavaHooks.reset();
     }
 
 }
