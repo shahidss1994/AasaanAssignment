@@ -1,4 +1,4 @@
-package com.shock.aasaanjobassignment.city.interactor;
+package com.shock.aasaanjobassignment.interactor;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

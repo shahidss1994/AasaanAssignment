@@ -67,9 +67,8 @@ dependencies {
     compileOnly "javax.annotation:jsr250-api:$rootProject.annotation"
 
     //Mockito
-    androidTestImplementation "org.mockito:mockito-core:$rootProject.mockito"
+    testImplementation "org.mockito:mockito-core:$rootProject.mockito"
 
-    androidTestImplementation "junit:junit:$rootProject.junit"
 
 
 }
